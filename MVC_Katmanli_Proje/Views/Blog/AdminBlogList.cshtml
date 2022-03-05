@@ -1,0 +1,35 @@
+﻿@model IEnumerable<EntityLayer.Concrete.Blog>
+@{
+    ViewBag.Title = "AdminBlogList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Blogs</h2><br />
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Date</th>
+        <th>Delete</th>
+        <th>Edit</th>
+        <th>Details</th>
+        <th>Comments</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>@item.BlogID</td>
+        <td>@item.BlogTitle</td>
+        <td>@item.Category.CategoryName</td>
+        <td>@item.BlogDate</td>
+        <td>@Html.ActionLink("Delete", "DeleteBlog", "Blog", new { id = item.BlogID }, new { @class = "btn btn-danger" })</td>
+        <td>@Html.ActionLink("Edit", "UpdateBlog", "Blog", new { id = item.BlogID }, new { @class = "btn btn-success" })</td>
+        <td>@Html.ActionLink("Details", "BlogDetails", "Blog", new { id = item.BlogID }, new { @class = "btn btn-warning" })</td>
+        <td>@Html.ActionLink("Details", "GetCommentByBlog", "Blog", new { id = item.BlogID }, new { @class = "btn btn-dark" })</td>
+    </tr>
+    }
+</table>
+@Html.ActionLink("Add a New Blog", "addnewblog", "Blog", new { @class = "btn btn-primary" })
+
+

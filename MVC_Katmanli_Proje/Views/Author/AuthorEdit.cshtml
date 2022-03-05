@@ -1,0 +1,38 @@
+﻿@model EntityLayer.Concrete.Author
+@{
+    ViewBag.Title = "AuthorEdit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>AuthorEdit</h2>
+
+<form class="form-group" method="post">
+    @Html.Label("Author ID")
+    @Html.TextBoxFor(x => x.AuthorID, new { @class = "form-control" })
+    <br />
+    @Html.Label("Author Name")
+    @Html.TextBoxFor(x => x.AuthorName, new { @class = "form-control" })
+    <br />
+    @Html.Label("Author About")
+    @Html.TextBoxFor(x => x.AuthorAbout, new { @class = "form-control" })
+    <br />
+    @Html.Label("Author Image")
+    @Html.TextBoxFor(x => x.AuthorImage, new { @class = "form-control" })
+    <br />
+    @Html.Label("Author Title")
+    @Html.TextBoxFor(x => x.AuthorTitle, new { @class = "form-control" })
+    <br />
+    @Html.Label("About Short")
+    @Html.TextBoxFor(x => x.AboutShort, new { @class = "form-control" })
+    <br />
+    @Html.Label("Author Mail")
+    @Html.TextBoxFor(x => x.Mail, new { @class = "form-control" })
+    <br />
+    @Html.Label("Author Phone Number")
+    @Html.TextBoxFor(x => x.PhoneNumber, new { @class = "form-control" })
+    <br />
+    @Html.Label("Password")
+    @Html.TextBoxFor(x => x.Password, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-info">Update</button>
+</form>

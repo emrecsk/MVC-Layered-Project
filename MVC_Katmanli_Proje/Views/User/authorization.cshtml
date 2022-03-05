@@ -1,0 +1,25 @@
+﻿@model IEnumerable<EntityLayer.Concrete.Admin>
+@{
+    ViewBag.Title = "authorization";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Authorization</h2>
+
+<table class="table table-hover">
+    <tr>
+        <th>Admin ID</th>
+        <th>Admin User Name</th>
+        <th>Password</th>
+        <th>Role</th>
+    </tr>
+    @foreach(var item in Model)
+    {
+    <tr>
+        <td>@item.AdminID</td>
+        <td>@item.UserName</td>
+        <td>@item.Password</td>
+        <td>@item.AdminRole</td>
+    </tr>
+    }
+</table> 

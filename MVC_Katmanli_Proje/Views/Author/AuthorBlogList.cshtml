@@ -1,0 +1,193 @@
+﻿@model IEnumerable<EntityLayer.Concrete.Blog>
+@{
+    ViewBag.Title = "AuthorBlogList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@{ string color = "";
+    string text = "";}
+<h2>BlogList</h2>
+
+<html>
+<body class="hold-transition sidebar-mini">
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="card">
+
+            <div class="card-header">
+
+                <h3 class="card-title">My Blogs</h3>
+
+                <div class="card-tools">
+
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+
+                        <i class="fas fa-minus"></i>
+
+                    </button>
+
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+
+                        <i class="fas fa-times"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="card-body p-0">
+
+                <table class="table table-hover projects">
+
+                    <thead>
+
+                        <tr>
+
+                            <th style="width: 1%">
+
+                                ID
+
+                            </th>
+
+                            <th style="width: 34%">
+
+                                Blog Title
+
+                            </th>
+
+                            <th style="width: 20%">
+
+                                Blog Rate
+
+                            </th>
+
+                            <th style="width: 10%" class="text-center">
+
+                                Status
+
+                            </th>
+
+                            <th style="width: 35%" class="text-center">
+                                Controls
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            if (item.BlogRating >= 80)
+                            {
+                                color = "badge badge-success";
+                                text = "Success";
+                            }
+                            if (item.BlogRating < 80 && item.BlogRating >= 60)
+                            {
+                                color = "badge badge-primary";
+                                text = "Not best but good enough";
+                            }
+                            if (item.BlogRating < 60 && item.BlogRating >= 40)
+                            {
+                                color = "badge badge-secondary";
+                                text = "You can do it";
+                            }
+                            if (item.BlogRating < 40 && item.BlogRating >= 20)
+                            {
+                                color = "badge badge-warning";
+                                text = "Check your blog";
+                            }
+                            if (item.BlogRating < 20)
+                            {
+                                color = "badge badge-danger";
+                                text = "Danger";
+                            }
+                            <tr>
+                                <td>
+                                    @item.BlogID
+                                </td>
+                                <td>
+                                    @item.BlogTitle
+                                </td>
+
+                                <td class="project_progress">
+
+                                    <div class="progress progress-sm">
+
+                                        <div class="progress-bar bg-green" role="progressbar" aria-volumenow="@item.BlogRating" aria-volumemin="0" aria-volumemax="10" style="width: @item.BlogRating%">
+
+                                        </div>
+
+                                    </div>
+
+                                    <small>
+
+                                        @item.BlogRating
+
+                                    </small>
+
+                                </td>
+
+                                <td class="project-state">
+
+                                    <span class="@color">@text</span>
+
+                                </td>
+
+                                <td class="project-actions text-right">
+
+                                    <a class="btn btn-primary btn-sm" href="#">
+
+                                        <i class="fas fa-folder">
+
+                                        </i>
+
+                                        Blogs
+
+                                    </a>
+
+                                    <a class="btn btn-info btn-sm" href="/Blog/UpdateBlog/@item.BlogID">
+
+                                        <i class="fas fa-pencil-alt">
+
+                                        </i>
+
+                                        Edit
+
+                                    </a>
+
+                                    <a class="btn btn-danger btn-sm" href="#">
+
+                                        <i class="fas fa-trash">
+
+                                        </i>
+
+                                        Delete
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <!-- /.card-body -->
+
+        </div>
+
+        <!-- /.card -->
+        <a href="/Blog/addnewblog/" class="btn btn-info">Write a new blog</a>
+    </section>
+
+</body>
+
+</html>
+

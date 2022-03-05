@@ -1,0 +1,138 @@
+﻿@model EntityLayer.Concrete.Contact
+@{
+    ViewBag.Title = "MessageDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+
+<body class="hold-transition sidebar-mini">
+
+    <!-- Content Header (Page header) -->
+
+    <section class="content-header">
+
+        <div class="container-fluid">
+
+            <div class="row mb-2">
+
+                <div class="col-sm-6">
+
+                    <h1>Message Details</h1>
+
+                </div>
+
+            </div>
+
+        </div><!-- /.container-fluid -->
+
+    </section>
+
+    <!-- Main content -->
+
+    <section class="content">
+
+        <div class="container-fluid">
+
+            <div class="row">
+
+                <div class="col-md-3">
+
+                    <a href="/Contact/SendBox/" class="btn btn-primary btn-block mb-3">Back to Inbox</a>
+
+                    @Html.Action("layoutformessages", "Contact")
+
+                </div>
+
+                <!-- /.col -->
+
+                <div class="col-md-9">
+
+                    <div class="card card-primary card-outline">
+
+                        <div class="card-header">
+
+                            <h3 class="card-title">@Model.Subject</h3>
+
+                            <div class="card-tools">
+
+                                <a href="#" class="btn btn-tool" data-toggle="tooltip" title="Previous"><i class="fas fa-chevron-left"></i></a>
+
+                                <a href="#" class="btn btn-tool" data-toggle="tooltip" title="Next"><i class="fas fa-chevron-right"></i></a>
+
+                            </div>
+
+                        </div>
+
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+
+                            <div class="mailbox-read-info">
+
+                                <h5> <b>@Model.Name @Model.Surname</b></h5>
+
+                                <h6>
+
+                                    From: @Html.DisplayFor(x => x.Mail)
+
+                                          <span class="mailbox-read-time float-right"> @(((DateTime)Model.messagedate).ToString("dd-MMM-yyyy"))</span>
+
+                                </h6>
+
+                            </div>
+
+                            <!-- /.mailbox-read-info -->
+                            
+
+                            <!-- /.mailbox-controls -->
+
+                            <div class="mailbox-read-message">
+
+                                @Model.Message
+
+                            </div>
+
+                            <!-- /.mailbox-read-message -->
+
+                        </div>
+
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+
+                            <div class="float-right">
+
+                                <button type="button" class="btn btn-default"><i class="fas fa-reply"></i> Reply</button>
+
+                                <button type="button" class="btn btn-default"><i class="fas fa-share"></i> Forward</button>
+
+                            </div>
+
+                            <button type="button" class="btn btn-default"><i class="far fa-trash-alt"></i> Delete</button>
+
+                            <button type="button" class="btn btn-default"><i class="fas fa-print"></i> Print</button>
+
+                        </div>
+
+                        <!-- /.card-footer -->
+
+                    </div>
+
+                    <!-- /.card -->
+
+                </div>
+
+                <!-- /.col -->
+
+            </div>
+
+            <!-- /.row -->
+
+        </div>
+
+    </section>
+
+</body>
+
+</html>
