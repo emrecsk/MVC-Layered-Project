@@ -28,25 +28,25 @@ namespace BusinessLayer
         {
             return repocomment.List(x => x.CommentStatus == false);
         }
-        public int CommentAdd(Comment c)
+        public void CommentAdd(Comment c)
         {
-            if (c.CommentText.Length <= 4 || c.CommentText.Length >= 500 || c.UserName == "" || c.Mail == "" || c.UserName.Length <= 5)
-            {
-                return -1;
-            }
-            return repocomment.Insert(c);
+            //if (c.CommentText.Length <= 4 || c.CommentText.Length >= 500 || c.UserName == "" || c.Mail == "" || c.UserName.Length <= 5)
+            //{
+            //    return -1;
+            //}
+            repocomment.Insert(c);
         }
-        public int ChangeCommentStatusToFalse(int id)
+        public void ChangeCommentStatusToFalse(int id)
         {
             Comment comment = repocomment.Find(x => x.CommentID == id);
             comment.CommentStatus = false;
-            return repocomment.Update(comment);
+            repocomment.Update(comment);
         }
-        public int ChangeCommentStatustoTrue(int id)
+        public void ChangeCommentStatustoTrue(int id)
         {
             Comment comment = repocomment.Find(x => x.CommentID == id);
             comment.CommentStatus = true;
-            return repocomment.Update(comment);
+            repocomment.Update(comment);
         }
     }
 }

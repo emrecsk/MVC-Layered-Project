@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Concrete;
+﻿using BusinessLayer.Abstract;
+using DataAccessLayer.Abstract;
+using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,44 +10,56 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    public class CategoryManager
+    public class CategoryManager : ICategoryService
     {
+        ICategoryDAL _categoryDAL;
+
         Repository<Category> repocategory = new Repository<Category>();
-        public List<Category> GetAll()
-        {            
-            return repocategory.List();           
-        }
+
+        public CategoryManager(ICategoryDAL categoryDAL)
+        {
+            _categoryDAL = categoryDAL;
+        }       
         public List<Category> GetTrue()
         {
             return repocategory.List(x => x.CategoryStatus == true);
-        }
-        public int addCategorycm(Category p)
+        }       
+        public void backCategory(int id)
         {
-            return repocategory.Insert(p);
-        }
-        public Category find(int id)
-        {
-            return repocategory.Find(x => x.CategoryID == id);
-        }
-        public int updateCategory(Category p)
-        {
-            Category cat = repocategory.Find(x => x.CategoryID == p.CategoryID);
-            cat.CategoryName = p.CategoryName;
-            cat.CategoryDescription = p.CategoryDescription;
-            cat.CategoryID = p.CategoryID;
-            return repocategory.Update(cat);
-        }
-        public int deleteCategory(int id)
-        {
-            Category delete = repocategory.Find(x => x.CategoryID == id);
-            delete.CategoryStatus = false;
-            return repocategory.Update(delete);
-        }
-        public int backCategory(int id)
-        {
-            Category back = repocategory.Find(x => x.CategoryID == id);
+            Category back = _categoryDAL.GetByID(id);
             back.CategoryStatus = true;
-            return repocategory.Update(back);
+            repocategory.Update(back);
+        }
+        public void falseCategory(int id)
+        {
+            Category convert = _categoryDAL.GetByID(id);
+            convert.CategoryStatus = false;
+            repocategory.Update(convert);
+        }
+
+        public List<Category> GetList()
+        {
+            return _categoryDAL.List();
+        }
+
+        public void CategoryAdd(Category category)
+        {
+            _categoryDAL.Insert(category);
+        }
+
+        public Category GetByID(int id)
+        {
+            return _categoryDAL.GetByID(id);
+        }
+
+        public void CategoryDelete(Category category)
+        {
+            _categoryDAL.Delete(category);
+        }
+
+        public void CategoryUpdate(Category category)
+        {
+            _categoryDAL.Update(category);
         }
     }
 }

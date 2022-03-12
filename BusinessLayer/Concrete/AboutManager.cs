@@ -15,7 +15,7 @@ namespace BusinessLayer.Concrete
         {
             return repoabout.List();
         }
-        public int UpdateAboutBM(About p)
+        public void UpdateAboutBM(About p)
         {
             About changeabout = repoabout.Find(x => x.AboutID == p.AboutID);
             changeabout.AboutContent1 = p.AboutContent1;
@@ -23,7 +23,7 @@ namespace BusinessLayer.Concrete
             changeabout.AboutImage1 = p.AboutImage1;
             changeabout.AboutImage2 = p.AboutImage2;
             changeabout.AboutID = p.AboutID;
-            return repoabout.Update(changeabout);
+            repoabout.Update(changeabout);
         }
     }
 }

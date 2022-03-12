@@ -1,5 +1,8 @@
 ﻿using BusinessLayer;
+using BusinessLayer.ValidationRules;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +14,7 @@ namespace MVC_Katmanli_Proje.Controllers
     public class CategoryController : Controller
     {
         // GET: Category
-        CategoryManager cm = new CategoryManager();
-        [AllowAnonymous]
-        public ActionResult Index()
-        {
-            var categoryvalues = cm.GetAll();
-            return View(categoryvalues);
-        }
+        CategoryManager cm = new CategoryManager(new efCategoryDal());
         [AllowAnonymous]
         public PartialViewResult BlogDetailsCategoryList()
         {
@@ -26,7 +23,7 @@ namespace MVC_Katmanli_Proje.Controllers
         }
         public ActionResult AdminCategoryList()
         {
-            var categorylist = cm.GetAll();
+            var categorylist = cm.GetList();
             return View(categorylist);
         }
         [HttpGet]
@@ -37,24 +34,37 @@ namespace MVC_Katmanli_Proje.Controllers
         [HttpPost]
         public ActionResult AddCategory(Category p)
         {
-            cm.addCategorycm(p);
+            cm.CategoryAdd(p);
             return RedirectToAction("AdminCategoryList");
         }
         [HttpGet]
         public ActionResult editCategory(int id)
         {
-            Category editing = cm.find(id);
+            Category editing = cm.GetByID(id);
             return View(editing);
         }
         [HttpPost]
         public ActionResult editCategory(Category p)
         {
-            cm.updateCategory(p);
+            CategoryValidator validator = new CategoryValidator();
+            ValidationResult result = validator.Validate(p);
+            if (result.IsValid)
+            {
+            cm.CategoryUpdate(p);
             return RedirectToAction("AdminCategoryList");
+            }
+            else
+            {
+                foreach(var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
         }
         public ActionResult categoryDelete(int id)
         {
-            cm.deleteCategory(id);
+            cm.falseCategory(id);
             return RedirectToAction("AdminCategoryList");
         }
         public ActionResult categoryBack (int id)
