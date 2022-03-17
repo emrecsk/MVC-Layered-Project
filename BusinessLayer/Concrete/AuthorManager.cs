@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Concrete;
+﻿using BusinessLayer.Abstract;
+using DataAccessLayer.Abstract;
+using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,40 +10,32 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
-    public class AuthorManager
+    public class AuthorManager : IAuthorService
     {
-        Repository<Author> repoauthor = new Repository<Author>();
-        public List<Author> getall()
+        IAuthorDAL _authordal;        
+        public AuthorManager(IAuthorDAL authorDAL)
         {
-            return repoauthor.List();
+            _authordal = authorDAL;
+        }        
+        public List<Author> GetList()
+        {
+           return _authordal.List();
         }
-
-        public void AddAuthorBL(Author p)
+        public Author GetByID(int id)
         {
-            //if(p.AuthorName == "" || p.AuthorTitle =="" || p.AuthorAbout == "")
-            //{
-            //    return -1;
-            //}
-            repoauthor.Insert(p);
+            return _authordal.GetByID(id);
         }
-        //yazarı id değerine göre edit sayfasına taşıma
-
-        public Author FindAuthor (int id)
+        public void TAdd(Author t)
         {
-            return repoauthor.Find(x => x.AuthorID == id);
+            _authordal.Insert(t);
         }
-        public void EditAuthor(Author p)
+        public void TDelete(Author t)
         {
-            Author author = repoauthor.Find(x => x.AuthorID == p.AuthorID);
-            author.AboutShort = p.AboutShort;
-            author.AuthorName = p.AuthorName;
-            author.AuthorImage = p.AuthorImage;
-            author.AuthorAbout = p.AuthorAbout;
-            author.AuthorTitle = p.AuthorTitle;
-            author.Mail = p.Mail;
-            author.Password = p.Password;
-            author.PhoneNumber = p.PhoneNumber;
-            repoauthor.Update(author);
+            throw new NotImplementedException();
+        }
+        public void TUpdate(Author t)
+        {
+            _authordal.Update(t);
         }
     }
 }

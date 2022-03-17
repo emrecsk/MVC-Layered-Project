@@ -26,7 +26,7 @@
         <td>@Html.ActionLink("Delete", "DeleteBlog", "Blog", new { id = item.BlogID }, new { @class = "btn btn-danger" })</td>
         <td>@Html.ActionLink("Edit", "UpdateBlog", "Blog", new { id = item.BlogID }, new { @class = "btn btn-success" })</td>
         <td>@Html.ActionLink("Details", "BlogDetails", "Blog", new { id = item.BlogID }, new { @class = "btn btn-warning" })</td>
-        <td>@Html.ActionLink("Details", "GetCommentByBlog", "Blog", new { id = item.BlogID }, new { @class = "btn btn-dark" })</td>
+        <td>@Html.ActionLink("Comments", "GetCommentByBlog", "Blog", new { id = item.BlogID }, new { @class = "btn btn-dark" })</td>
     </tr>
     }
 </table>

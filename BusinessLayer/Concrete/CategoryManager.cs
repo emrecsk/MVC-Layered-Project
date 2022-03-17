@@ -13,53 +13,45 @@ namespace BusinessLayer
     public class CategoryManager : ICategoryService
     {
         ICategoryDAL _categoryDAL;
-
-        Repository<Category> repocategory = new Repository<Category>();
-
         public CategoryManager(ICategoryDAL categoryDAL)
         {
             _categoryDAL = categoryDAL;
         }       
         public List<Category> GetTrue()
         {
-            return repocategory.List(x => x.CategoryStatus == true);
+            return _categoryDAL.List(x => x.CategoryStatus == true);
         }       
         public void backCategory(int id)
         {
             Category back = _categoryDAL.GetByID(id);
             back.CategoryStatus = true;
-            repocategory.Update(back);
+            _categoryDAL.Update(back);
         }
         public void falseCategory(int id)
         {
             Category convert = _categoryDAL.GetByID(id);
             convert.CategoryStatus = false;
-            repocategory.Update(convert);
+            _categoryDAL.Update(convert);
         }
-
         public List<Category> GetList()
         {
             return _categoryDAL.List();
         }
-
-        public void CategoryAdd(Category category)
-        {
-            _categoryDAL.Insert(category);
-        }
-
         public Category GetByID(int id)
         {
             return _categoryDAL.GetByID(id);
         }
-
-        public void CategoryDelete(Category category)
+        public void TAdd(Category t)
         {
-            _categoryDAL.Delete(category);
+            _categoryDAL.Insert(t);
         }
-
-        public void CategoryUpdate(Category category)
+        public void TDelete(Category t)
         {
-            _categoryDAL.Update(category);
+            _categoryDAL.Delete(t);
+        }
+        public void TUpdate(Category t)
+        {
+            _categoryDAL.Update(t);
         }
     }
 }

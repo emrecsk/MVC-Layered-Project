@@ -34,7 +34,7 @@ namespace MVC_Katmanli_Proje.Controllers
         [HttpPost]
         public ActionResult AddCategory(Category p)
         {
-            cm.CategoryAdd(p);
+            cm.TAdd(p);
             return RedirectToAction("AdminCategoryList");
         }
         [HttpGet]
@@ -50,7 +50,7 @@ namespace MVC_Katmanli_Proje.Controllers
             ValidationResult result = validator.Validate(p);
             if (result.IsValid)
             {
-            cm.CategoryUpdate(p);
+            cm.TUpdate(p);
             return RedirectToAction("AdminCategoryList");
             }
             else

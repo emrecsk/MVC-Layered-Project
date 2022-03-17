@@ -1,4 +1,5 @@
 ﻿using BusinessLayer;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace MVC_Katmanli_Proje.Controllers
     public class CommentController : Controller
     {
         // GET: Comment
-        CommentManager cm = new CommentManager();
+        CommentManager cm = new CommentManager(new EfCommentDal());
         [AllowAnonymous]
         public PartialViewResult CommentList(int id)
         {
@@ -30,7 +31,7 @@ namespace MVC_Katmanli_Proje.Controllers
         public PartialViewResult LeaveComment(Comment c)
         {
             c.CommentStatus = true;
-            cm.CommentAdd(c);
+            cm.TAdd(c);
             return PartialView();
         }
         public ActionResult AdminCommentListTrue()

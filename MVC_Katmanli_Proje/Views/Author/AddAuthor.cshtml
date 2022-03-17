@@ -9,15 +9,19 @@
 <form class="form-group" method="post">
     @Html.Label("Author Name")
     @Html.TextBoxFor(x => x.AuthorName, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.AuthorName)
     <br />
     @Html.Label("Author About")
     @Html.TextBoxFor(x => x.AuthorAbout, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.AuthorAbout)
     <br />
     @Html.Label("Author Image")
     @Html.TextBoxFor(x => x.AuthorImage, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.AuthorImage)
     <br />
     @Html.Label("Author Title")
     @Html.TextBoxFor(x => x.AuthorTitle, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.AuthorTitle)
     <br />
     @Html.Label("About Short")
     @Html.TextBoxFor(x => x.AboutShort, new { @class = "form-control" })

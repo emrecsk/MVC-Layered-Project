@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,8 @@ namespace MVC_Katmanli_Proje.Controllers
     {
         // GET: User
         UserProfileManager userprofile = new UserProfileManager();
-        BlogManager bm = new BlogManager();
-        AuthorManager ma = new AuthorManager();
+        BlogManager bm = new BlogManager(new EfBlogDal());
+        AuthorManager ma = new AuthorManager(new EfAuthorDal());
         public ActionResult Index()
         {            
             return View();
@@ -29,7 +30,7 @@ namespace MVC_Katmanli_Proje.Controllers
         }
         public ActionResult EditAuthor(Author p)
         {
-            ma.EditAuthor(p);
+            ma.TUpdate(p);
             return RedirectToAction("Index");
         }
         public ActionResult BlogList(string p)
@@ -43,7 +44,7 @@ namespace MVC_Katmanli_Proje.Controllers
         [HttpGet]
         public ActionResult UpdateBlog(int id)
         {
-            Blog blog = bm.FindBlog(id);
+            Blog blog = bm.GetByID(id);
             Context c = new Context();
             List<SelectListItem> values = (from x in c.Categories.ToList() select new SelectListItem { Text = x.CategoryName, Value = x.CategoryID.ToString() }).ToList();
             ViewBag.values = values;
@@ -54,7 +55,7 @@ namespace MVC_Katmanli_Proje.Controllers
         [HttpPost]
         public ActionResult UpdateBlog(Blog p)
         {
-            bm.UpdateBlog(p);
+            bm.TUpdate(p);
             return RedirectToAction("BlogList");
         }
 
@@ -71,7 +72,7 @@ namespace MVC_Katmanli_Proje.Controllers
         [HttpPost]
         public ActionResult addnewblog(Blog b)
         {
-            bm.BlogAddBL(b);
+            bm.TAdd(b);
             return RedirectToAction("BlogList");
         }        
         public ActionResult authorization()
